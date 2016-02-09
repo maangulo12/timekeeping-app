@@ -1,0 +1,14 @@
+.time-display {
+    padding-bottom: 40px;
+    padding-top:    40px;
+}
+
+.alarm-display {
+    font-style:     italic;
+    padding-bottom: 15px;
+    padding-top:    15px;
+}
+
+.hour-mode {
+    padding-top: 15px;
+}

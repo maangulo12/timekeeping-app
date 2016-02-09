@@ -1,0 +1,23 @@
+{
+  "name": "timekeeping-app",
+  "description": "TimeKeeping App",
+  "main": "main.js",
+  "authors": [
+    "Miguel A. Angulo"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/maangulo12/timekeeping-app",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "~2.11.2",
+    "bootstrap": "~3.3.6",
+    "bootstrap-switch": "~3.3.2"
+  }
+}
