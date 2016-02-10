@@ -1,6 +1,10 @@
 .time-display {
-    padding-bottom: 40px;
-    padding-top:    40px;
+    padding-bottom: 65px;
+    padding-top:    65px;
+}
+
+.set-alarm-button {
+    font-weight: bold;
 }
 
 .alarm-display {
@@ -10,5 +14,11 @@
 }
 
 .hour-mode {
-    padding-top: 15px;
+    padding-top: 70px;
+}
+
+.set-time-button {
+    font-weight:   bold;
+    margin-bottom: 20px;
+    margin-top:    20px;
 }
