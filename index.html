@@ -16,70 +16,240 @@
             <!-- Left Side -->
             <div class="col-xs-4">
                 <div class="text-center">
-                    <!-- Time Title -->
-                    <h1> Time </h1>
-                    <!-- Time Display -->
-                    <h1 class="time-display"></h1>
-                    <!-- Set Alarm Button -->
-                    <button class="set-alarm-button btn btn-danger" type="submit"
-                            data-toggle="modal" data-target="#set-alarm-modal">
+                    <!-- Alarm Mode -->
+                    <div class="alarm-mode">
+                        <h5> Alarm </h5>
+                        <input class="alarm-checkbox" type="checkbox" onchange="toggleAlarm()">
+                        <audio class="alarm-sound" src="sounds/alarm.mp3"></audio>
+                    </div>
+                    <!-- Alarm Button -->
+                    <button class="alarm-button btn btn-danger" type="submit"
+                            data-toggle="modal" data-target="#alarm-modal">
+                        <span class="glyphicon glyphicon-time glyphicon-padding" aria-hidden="true"></span>
                         Set Alarm
                     </button>
                     <!-- Alarm Display -->
                     <p class="alarm-display">
-                        Alarm is set for
+                        <span class="alarm-msg"></span>
                         <span class="alarm-time"></span>
                     </p>
                 </div>
             </div>
-            <!-- Middle -->
+            <!-- Center -->
             <div class="col-xs-4">
                 <div class="text-center">
-                    <!-- 24-Hour Mode -->
-                    <h5 class="hour-mode"> 24-Hour Mode </h5>
-                    <!-- 24-Hour Mode Toggle -->
-                    <input class="hour-checkbox" type="checkbox" onclick="updateTime()">
-                    <!-- Show Seconds -->
-                    <h5 class="seconds-mode"> Show Seconds </h5>
-                    <!-- Show Seconds Toggle -->
-                    <input class="seconds-checkbox" type="checkbox" onclick="updateTime()">
-                    <!-- Daylight Savings -->
-                    <h5 class="daylight-savings-mode"> Daylight Savings </h5>
-                    <!-- Daylight Savings Toggle -->
-                    <input class="daylight-savings-checkbox" type="checkbox" onclick="">
-                    <!-- Line Break -->
-                    <br>
-                    <!-- Set Time Button -->
-                    <button class="set-time-button btn btn-primary" type="submit"
-                            data-toggle="modal" data-target="#set-time-modal">
-                        Set Time
+                    <h1> Time </h1>
+                    <!-- Time Display -->
+                    <h1 class="time-display"></h1>
+                    <!-- Time Zone Button -->
+                    <button class="timezone-button btn btn-info" type="submit"
+                            data-toggle="modal" data-target="#timezone-modal">
+                        <span class="glyphicon glyphicon-globe glyphicon-padding" aria-hidden="true"></span>
+                        Set Time Zone
                     </button>
+                    <!-- Tim Zone Display -->
+                    <p class="timezone-display">
+                        GMT Greenwich Mean Time
+                    </p>
                 </div>
             </div>
             <!-- Right Side -->
             <div class="col-xs-4">
                 <div class="text-center">
-                    <!-- Time Zones Title -->
-                    <h3> Time Zones </h3>
-                    <!-- List Group -->
-                    <div class="list-group">
-                        <a href="#" class="list-group-item active">
-                            Cras justo odio
-                        </a>
-                        <a href="#" class="list-group-item">
-                            Dapibus ac facilisis in
-                        </a>
-                        <a href="#" class="list-group-item">
-                            Morbi leo risus
-                        </a>
+                    <!-- Time Button -->
+                    <button class="time-button btn btn-warning" type="submit"
+                            data-toggle="modal" data-target="#time-modal">
+                        <span class="glyphicon glyphicon-cog glyphicon-padding" aria-hidden="true"></span>
+                        Set Time
+                    </button>
+                    <!-- Hour Mode -->
+                    <div class="hour-mode">
+                        <h5> 24-Hour Mode </h5>
+                        <input class="hour-checkbox" type="checkbox" onchange="updateTime()">
+                    </div>
+                    <!-- Seconds Mode -->
+                    <div class="seconds-mode">
+                        <h5> Show Seconds </h5>
+                        <input class="seconds-checkbox" type="checkbox" onchange="updateTime()">
+                    </div>
+                    <!-- Daylight Savings Mode -->
+                    <div class="daylight-mode">
+                        <h5> Daylight Savings </h5>
+                        <input class="daylight-checkbox" type="checkbox" onchange="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal - Set Time -->
+    <!-- Modal - Alarm -->
     <div class="container">
-        <div class="modal fade" id="set-time-modal" aria-hidden="true">
+        <div class="modal fade" id="alarm-modal" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <!-- Close Button -->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"> &times; </span>
+                        </button>
+                        <!-- Title -->
+                        <h4 class="modal-title">
+                            <b> Set Alarm </b>
+                        </h4>
+                    </div>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <!-- Left Side -->
+                            <div class="col-xs-4">
+                                <button class="btn btn-default" onclick="increaseHour()">
+                                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                                </button>
+                                <br>
+                                <h1 class="set-alarm-hour"></h1>
+                                <br>
+                                <button class="btn btn-default" onclick="decreaseHour()">
+                                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <!-- Center -->
+                            <div class="col-xs-4">
+                                <button class="btn btn-default" onclick="increaseMinutes()">
+                                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                                </button>
+                                <br>
+                                <h1 class="set-alarm-minutes"></h1>
+                                <br>
+                                <button class="btn btn-default" onclick="decreaseMinutes()">
+                                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <!-- Right Side -->
+                            <div class="col-xs-4">
+                                <button class="btn btn-default">
+                                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                                </button>
+                                <br>
+                                <h1 class="set-alarm-misc"></h1>
+                                <br>
+                                <button class="btn btn-default">
+                                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <!-- Cancel Button -->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <b> Cancel </b>
+                        </button>
+                        <!-- Set Alarm Button -->
+                        <button type="button" class="btn btn-danger">
+                            <b> Set Alarm </b>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal - Time Zone -->
+    <div class="container">
+        <div class="modal fade" id="timezone-modal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <!-- Close Button -->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"> &times; </span>
+                        </button>
+                        <!-- Title -->
+                        <h4 class="modal-title">
+                            <b> Set Time Zone </b>
+                        </h4>
+                    </div>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <!-- List Group -->
+                        <div class="list-group">
+                            <a href="#" class="list-group-item active">
+                                GMT Greenwich Mean Time (GMT)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                UTC Universal Coordinated Time (GMT)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                            <a href="#" class="list-group-item">
+                                ECT European Central Time (GMT+1:00)
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <!-- Cancel Button -->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <b> Cancel </b>
+                        </button>
+                        <!-- Set Time Button -->
+                        <button type="button" class="btn btn-warning">
+                            <b> Set Time Zone </b>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal - Time -->
+    <div class="container">
+        <div class="modal fade" id="time-modal" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <!-- Modal Header -->
@@ -106,41 +276,6 @@
                         <!-- Set Time Button -->
                         <button type="button" class="btn btn-primary">
                             <b> Set Time </b>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal - Set Alarm -->
-    <div class="container">
-        <div class="modal fade" id="set-alarm-modal" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <!-- Close Button -->
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"> &times; </span>
-                        </button>
-                        <!-- Title -->
-                        <h4 class="modal-title">
-                            <b> Set Alarm </b>
-                        </h4>
-                    </div>
-                    <!-- Modal Body -->
-                    <div class="modal-body">
-
-                    </div>
-                    <!-- Modal Footer -->
-                    <div class="modal-footer">
-                        <!-- Cancel Button -->
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                            <b> Cancel </b>
-                        </button>
-                        <!-- Set Time Button -->
-                        <button type="button" class="btn btn-danger">
-                            <b> Set Alarm </b>
                         </button>
                     </div>
                 </div>
