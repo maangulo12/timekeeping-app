@@ -1,24 +1,44 @@
-.time-display {
-    padding-bottom: 65px;
-    padding-top:    65px;
+.glyphicon-padding {
+    padding-right: 5px;
 }
 
-.set-alarm-button {
+/* Left */
+.alarm-mode {
+    padding-top: 80px;
+}
+.alarm-button {
+    font-weight: bold;
+    margin-top:  60px;
+}
+.alarm-display {
+    font-style:  italic;
+    padding-top: 15px;
+}
+
+/* Center */
+.time-display {
+    padding-bottom: 80px;
+    padding-top:    80px;
+}
+.timezone-button {
     font-weight: bold;
 }
-
-.alarm-display {
-    font-style:     italic;
-    padding-bottom: 15px;
-    padding-top:    15px;
+.timezone-display {
+    font-style:  italic;
+    padding-top: 15px;
 }
 
+/* Right */
+.time-button {
+    font-weight: bold;
+    margin-top:  55px;
+}
 .hour-mode {
-    padding-top: 70px;
+    padding-top: 10px;
 }
-
-.set-time-button {
-    font-weight:   bold;
-    margin-bottom: 20px;
-    margin-top:    20px;
+.seconds-mode {
+    padding-top: 10px;
+}
+.daylight-mode {
+    padding-top: 10px;
 }
