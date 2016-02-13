@@ -41,16 +41,46 @@
                     <h1> Time </h1>
                     <!-- Time Display -->
                     <h1 class="time-display"></h1>
-                    <!-- Time Zone Button -->
-                    <button class="timezone-button btn btn-info" type="submit"
-                            data-toggle="modal" data-target="#timezone-modal">
-                        <span class="glyphicon glyphicon-globe glyphicon-padding" aria-hidden="true"></span>
-                        Set Time Zone
-                    </button>
-                    <!-- Tim Zone Display -->
-                    <p class="timezone-display">
-                        GMT Greenwich Mean Time
-                    </p>
+                    <!-- Time Zone -->
+                    <div class="timezone-mode">
+                        <h5> Time Zone </h5>
+                        <!-- Time Zone Dropdown -->
+                        <select class="timezone-dropdown form-control">
+                            <option value="GMT"> GMT - Greenwich Mean Time </option>
+                            <option value="UTC"> UTC - Universal Coordinated Time </option>
+                            <option value="ECT"> ECT - European Central Time </option>
+                            <option value="EET"> EET - Eastern European Time </option>
+                            <option value="ART"> ART - (Arabic) Egypt Standard Time </option>
+                            <option value="EAT"> EAT - Eastern African Time </option>
+                            <option value="MET"> MET - Middle East Time </option>
+                            <option value="NET"> NET - Near East Time </option>
+                            <option value="PLT"> PLT - Pakistan Lahore Time </option>
+                            <option value="IST"> IST - India Standard Time </option>
+                            <option value="BST"> BST - Bangladesh Standard Time </option>
+                            <option value="VST"> VST - Vietnam Standard Time </option>
+                            <option value="CTT"> CTT - China Taiwan Time </option>
+                            <option value="JST"> JST - Japan Standard Time </option>
+                            <option value="ACT"> ACT - Australia Central Time </option>
+                            <option value="AET"> AET - Australia Eastern Time </option>
+                            <option value="SST"> SST - Solomon Standard Time </option>
+                            <option value="NST"> NST - New Zealand Standard Time </option>
+                            <option value="MIT"> MIT - Midway Islands Time </option>
+                            <option value="HST"> HST - Hawaii Standard Time </option>
+                            <option value="AST"> AST - Alaska Standard Time </option>
+                            <option value="PST"> PST - Pacific Standard Time </option>
+                            <option value="PNT"> PNT - Phoenix Standard Time </option>
+                            <option value="MST"> MST - Mountain Standard Time </option>
+                            <option value="CST"> CST - Central Standard Time </option>
+                            <option value="EST"> EST - Eastern Standard Time </option>
+                            <option value="IET"> IET - Indiana Eastern Standard Time </option>
+                            <option value="PRT"> PRT - Puerto Rico & US Virgin Islands Time </option>
+                            <option value="CNT"> CNT - Canada Newfoundland Time </option>
+                            <option value="AGT"> AGT - Argentina Standard Time </option>
+                            <option value="BET"> BET - Brazil Eastern Time </option>
+                            <option value="GST"> GST - South Georgia Time </option>
+                            <option value="CAT"> CAT - Central African Time </option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <!-- Right Side -->
@@ -239,60 +269,6 @@
                         <!-- Set Time Button -->
                         <button type="button" class="btn btn-success">
                             <b> Set Time </b>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal - Time Zone -->
-    <div class="container">
-        <div class="modal fade" id="timezone-modal" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <!-- Close Button -->
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"> &times; </span>
-                        </button>
-                        <!-- Title -->
-                        <h4 class="modal-title">
-                            <b> Set Time Zone </b>
-                        </h4>
-                    </div>
-                    <!-- Modal Body -->
-                    <div class="modal-body">
-                        <!-- List Group -->
-                        <div class="list-group">
-                            <a href class="list-group-item">
-                                GMT Greenwich Mean Time (GMT)
-                            </a>
-                            <a href class="list-group-item">
-                                UTC Universal Coordinated Time (GMT)
-                            </a>
-                            <a href class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
-                            </a>
-                            <a href class="list-group-item">
-                                EET Eastern European Time (GMT+2:00)
-                            </a>
-                            <a href class="list-group-item">
-                                ART (Arabic) Egypt Standard Time (GMT+2:00)
-                            </a>
-                            <a href class="list-group-item">
-                                EAT Eastern African Time (GMT+3:00)
-                            </a>
-                            <a href class="list-group-item">
-                                MET Middle East Time (GMT+3:30)
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Modal Footer -->
-                    <div class="modal-footer">
-                        <!-- Cancel Button -->
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                            <b> Cancel </b>
                         </button>
                     </div>
                 </div>
