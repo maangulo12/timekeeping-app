@@ -24,7 +24,7 @@
                     </div>
                     <!-- Alarm Button -->
                     <button class="alarm-button btn btn-danger" type="submit"
-                            data-toggle="modal" data-target="#alarm-modal">
+                            data-toggle="modal" data-target="#set-alarm-modal" onclick="initAlarmModal()">
                         <span class="glyphicon glyphicon-time glyphicon-padding" aria-hidden="true"></span>
                         Set Alarm
                     </button>
@@ -57,8 +57,8 @@
             <div class="col-xs-4">
                 <div class="text-center">
                     <!-- Time Button -->
-                    <button class="time-button btn btn-warning" type="submit"
-                            data-toggle="modal" data-target="#time-modal">
+                    <button class="time-button btn btn-success" type="submit"
+                            data-toggle="modal" data-target="#set-time-modal" onclick="initTimeModal()">
                         <span class="glyphicon glyphicon-cog glyphicon-padding" aria-hidden="true"></span>
                         Set Time
                     </button>
@@ -81,9 +81,9 @@
             </div>
         </div>
     </div>
-    <!-- Modal - Alarm -->
+    <!-- Modal - Set Alarm -->
     <div class="container">
-        <div class="modal fade" id="alarm-modal" aria-hidden="true">
+        <div class="modal fade" id="set-alarm-modal" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <!-- Modal Header -->
@@ -100,39 +100,49 @@
                     <!-- Modal Body -->
                     <div class="modal-body">
                         <div class="row">
-                            <!-- Left Side -->
-                            <div class="col-xs-4">
-                                <button class="btn btn-default" onclick="increaseHour()">
+                            <!-- Hour -->
+                            <div class="col-xs-3">
+                                <button class="btn btn-default" onclick="increaseAlarmHour()">
                                     <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                                 </button>
                                 <br>
                                 <h1 class="set-alarm-hour"></h1>
                                 <br>
-                                <button class="btn btn-default" onclick="decreaseHour()">
+                                <button class="btn btn-default" onclick="decreaseAlarmHour()">
                                     <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                                 </button>
                             </div>
-                            <!-- Center -->
+                            <!-- Colon -->
+                            <div class="col-xs-1">
+                                <br>
+                                <br>
+                                <h1> : </h1>
+                                <br>
+                                <br>
+                            </div>
+                            <!-- Minutes -->
                             <div class="col-xs-4">
-                                <button class="btn btn-default" onclick="increaseMinutes()">
+                                <button class="btn btn-default" onclick="increaseAlarmMinutes()">
                                     <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                                 </button>
                                 <br>
                                 <h1 class="set-alarm-minutes"></h1>
                                 <br>
-                                <button class="btn btn-default" onclick="decreaseMinutes()">
+                                <button class="btn btn-default" onclick="decreaseAlarmMinutes()">
                                     <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                                 </button>
                             </div>
-                            <!-- Right Side -->
-                            <div class="col-xs-4">
-                                <button class="btn btn-default">
+                            <!-- Blank -->
+                            <div class="col-xs-1"></div>
+                            <!-- AM/PM -->
+                            <div class="set-alarm-misc-side col-xs-3">
+                                <button class="btn btn-default" onclick="toggleAlarmMisc()">
                                     <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
                                 </button>
                                 <br>
                                 <h1 class="set-alarm-misc"></h1>
                                 <br>
-                                <button class="btn btn-default">
+                                <button class="btn btn-default" onclick="toggleAlarmMisc()">
                                     <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                                 </button>
                             </div>
@@ -145,8 +155,90 @@
                             <b> Cancel </b>
                         </button>
                         <!-- Set Alarm Button -->
-                        <button type="button" class="btn btn-danger">
+                        <button type="button" class="btn btn-danger" onclick="setAlarm()">
                             <b> Set Alarm </b>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal - Set Time -->
+    <div class="container">
+        <div class="modal fade" id="set-time-modal" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <!-- Close Button -->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"> &times; </span>
+                        </button>
+                        <!-- Title -->
+                        <h4 class="modal-title">
+                            <b> Set Time </b>
+                        </h4>
+                    </div>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <!-- Hour -->
+                            <div class="col-xs-3">
+                                <button class="btn btn-default" onclick="increaseTimeHour()">
+                                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                                </button>
+                                <br>
+                                <h1 class="set-time-hour"></h1>
+                                <br>
+                                <button class="btn btn-default" onclick="decreaseTimeHour()">
+                                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <!-- Colon -->
+                            <div class="col-xs-1">
+                                <br>
+                                <br>
+                                <h1> : </h1>
+                                <br>
+                                <br>
+                            </div>
+                            <!-- Minutes -->
+                            <div class="col-xs-4">
+                                <button class="btn btn-default" onclick="increaseTimeMinutes()">
+                                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                                </button>
+                                <br>
+                                <h1 class="set-time-minutes"></h1>
+                                <br>
+                                <button class="btn btn-default" onclick="decreaseTimeMinutes()">
+                                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <!-- Blank -->
+                            <div class="col-xs-1"></div>
+                            <!-- AM/PM -->
+                            <div class="set-time-misc-side col-xs-3">
+                                <button class="btn btn-default" onclick="toggleTimeMisc()">
+                                    <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                                </button>
+                                <br>
+                                <h1 class="set-time-misc"></h1>
+                                <br>
+                                <button class="btn btn-default" onclick="toggleTimeMisc()">
+                                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <!-- Cancel Button -->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <b> Cancel </b>
+                        </button>
+                        <!-- Set Time Button -->
+                        <button type="button" class="btn btn-success">
+                            <b> Set Time </b>
                         </button>
                     </div>
                 </div>
@@ -173,62 +265,26 @@
                     <div class="modal-body">
                         <!-- List Group -->
                         <div class="list-group">
-                            <a href="#" class="list-group-item active">
+                            <a href class="list-group-item">
                                 GMT Greenwich Mean Time (GMT)
                             </a>
-                            <a href="#" class="list-group-item">
+                            <a href class="list-group-item">
                                 UTC Universal Coordinated Time (GMT)
                             </a>
-                            <a href="#" class="list-group-item">
+                            <a href class="list-group-item">
                                 ECT European Central Time (GMT+1:00)
                             </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
+                            <a href class="list-group-item">
+                                EET Eastern European Time (GMT+2:00)
                             </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
+                            <a href class="list-group-item">
+                                ART (Arabic) Egypt Standard Time (GMT+2:00)
                             </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
+                            <a href class="list-group-item">
+                                EAT Eastern African Time (GMT+3:00)
                             </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
-                            </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
-                            </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
-                            </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
-                            </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
-                            </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
-                            </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
-                            </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
-                            </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
-                            </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
-                            </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
-                            </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
-                            </a>
-                            <a href="#" class="list-group-item">
-                                ECT European Central Time (GMT+1:00)
+                            <a href class="list-group-item">
+                                MET Middle East Time (GMT+3:30)
                             </a>
                         </div>
                     </div>
@@ -237,45 +293,6 @@
                         <!-- Cancel Button -->
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             <b> Cancel </b>
-                        </button>
-                        <!-- Set Time Button -->
-                        <button type="button" class="btn btn-warning">
-                            <b> Set Time Zone </b>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal - Time -->
-    <div class="container">
-        <div class="modal fade" id="time-modal" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <!-- Close Button -->
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"> &times; </span>
-                        </button>
-                        <!-- Title -->
-                        <h4 class="modal-title">
-                            <b> Set Time </b>
-                        </h4>
-                    </div>
-                    <!-- Modal Body -->
-                    <div class="modal-body">
-
-                    </div>
-                    <!-- Modal Footer -->
-                    <div class="modal-footer">
-                        <!-- Cancel Button -->
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                            <b> Cancel </b>
-                        </button>
-                        <!-- Set Time Button -->
-                        <button type="button" class="btn btn-primary">
-                            <b> Set Time </b>
                         </button>
                     </div>
                 </div>
