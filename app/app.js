@@ -13,21 +13,22 @@ var alarmMode  = document.querySelector('.alarm-checkbox');
 var alarmSound = document.querySelector('.alarm-sound');
 
 // Time Zone Main
-var selectedTimeZone;
+var timeZoneDropdown = document.querySelector('.timezone-dropdown');
 
 init();
 
 function init() {
+    // Seconds mode init
     secondsMode.checked = true;
-    alarmMode.checked   = true;
-    alarmMsg.innerHTML  = 'Alarm is set for';
-    selectedTimeZone    = 'Europe/London';
-
+    // Alarm mode init
+    alarmMode.checked  = true;
+    alarmMsg.innerHTML = 'Alarm is set for';
+    // Bootstrap-Switch
     $('.hour-checkbox').bootstrapSwitch();
     $('.seconds-checkbox').bootstrapSwitch();
     $('.daylight-checkbox').bootstrapSwitch();
     $('.alarm-checkbox').bootstrapSwitch();
-
+    // Show Time
     updateTime();
 }
 
@@ -36,7 +37,7 @@ function updateTime() {
     var seconds = secondsMode.checked;
     var alarm   = alarmMode.checked;
 
-    var getMoment = moment.tz(selectedTimeZone);
+    var getMoment = moment.tz(getTimeZone());
 
     if (hour && seconds) {
         time.innerHTML = getMoment.format('H:mm:ss');
@@ -79,6 +80,78 @@ function toggleAlarm() {
         alarmMsg.innerHTML  = 'Alarm is off';
         alarmTime.innerHTML = '';
     }
+}
+
+function getTimeZone() {
+    switch (timeZoneDropdown.value) {
+        case 'GMT':
+            return 'Europe/London';
+        case 'UTC':
+            return 'Antarctica/Troll';
+        case 'ECT':
+            return 'Europe/Madrid';
+        case 'EET':
+            return 'Europe/Sofia';
+        case 'ART':
+            return 'Africa/Cairo';
+        case 'EAT':
+            return 'Africa/Nairobi';
+        case 'MET':
+            return 'Asia/Tehran';
+        case 'NET':
+            return 'Asia/Dubai';
+        case 'PLT':
+            return 'Asia/Karachi';
+        case 'IST':
+            return 'Asia/Colombo';
+        case 'BST':
+            return 'Asia/Dhaka';
+        case 'VST':
+            return 'Asia/Bangkok';
+        case 'CTT':
+            return 'Asia/Shanghai';
+        case 'JST':
+            return 'Asia/Tokyo';
+        case 'ACT':
+            return 'Australia/Darwin';
+        case 'AET':
+            return 'Australia/Lindeman';
+        case 'SST':
+            return 'Australia/Melbourne';
+        case 'NST':
+            return 'Pacific/Tarawa';
+        case 'MIT':
+            return 'Pacific/Niue';
+        case 'HST':
+            return 'Pacific/Honolulu';
+        case 'AST':
+            return 'America/Sitka';
+        case 'PST':
+            return 'America/Los_Angeles';
+        case 'PNT':
+            return 'America/Phoenix';
+        case 'MST':
+            return 'America/Denver';
+        case 'CST':
+            return 'America/Monterrey';
+        case 'EST':
+            return 'America/New_York';
+        case 'IET':
+            return 'America/Indiana';
+        case 'PRT':
+            return 'America/Puerto_Rico';
+        case 'CNT':
+            return 'America/St_Johns';
+        case 'AGT':
+            return 'America/Argentina/Mendoza';
+        case 'BET':
+            return 'America/Bahia';
+        case 'GST':
+            return 'Atlantic/South_Georgia';
+        case 'CAT':
+            return 'Atlantic/Azores';
+        default:
+    }       return 'Europe/London';
 }
 
 //***********************************************************************
