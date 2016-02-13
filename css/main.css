@@ -1,6 +1,9 @@
 .glyphicon-padding {
     padding-right: 5px;
 }
+.list-group a:hover {
+    background-color: #4d4a4a;
+}
 
 /* Left */
 .alarm-mode {
