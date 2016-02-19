@@ -15,6 +15,8 @@ var alarmSound = document.querySelector('.alarm-sound');
 // Time Zone Main
 var timeZoneDropdown = document.querySelector('.timezone-dropdown');
 
+var currentTime;
+
 init();
 
 function init() {
@@ -37,34 +39,35 @@ function updateTime() {
     var seconds = secondsMode.checked;
     var alarm   = alarmMode.checked;
 
-    var getMoment = moment.tz(getTimeZone());
+    // Current Time
+    currentTime = moment.tz(getTimeZone());
 
     if (hour && seconds) {
-        time.innerHTML = getMoment.format('H:mm:ss');
+        time.innerHTML = currentTime.format('H:mm:ss');
 
         if (alarm) {
-            alarmTime.innerHTML = getMoment.format('H:mm');
+            alarmTime.innerHTML = currentTime.format('H:mm');
         }
     }
     else if (hour && !seconds) {
-        time.innerHTML = getMoment.format('H:mm');
+        time.innerHTML = currentTime.format('H:mm');
 
         if (alarm) {
-            alarmTime.innerHTML = getMoment.format('H:mm');
+            alarmTime.innerHTML = currentTime.format('H:mm');
         }
     }
     else if (!hour && seconds) {
-        time.innerHTML = getMoment.format('h:mm:ss A');
+        time.innerHTML = currentTime.format('h:mm:ss A');
 
         if (alarm) {
-            alarmTime.innerHTML = getMoment.format('h:mm A');
+            alarmTime.innerHTML = currentTime.format('h:mm A');
         }
     }
     else {
-        time.innerHTML = getMoment.format('h:mm A');
+        time.innerHTML = currentTime.format('h:mm A');
 
         if (alarm) {
-            alarmTime.innerHTML = getMoment.format('h:mm A');
+            alarmTime.innerHTML = currentTime.format('h:mm A');
         }
     }
 
@@ -390,5 +393,11 @@ function toggleTimeMisc() {
 
 // Set Time
 function setTime() {
-
+    $('#set-time-modal').modal('hide');
+    currentTime.set({
+        'hour':   selectedTimeHour,
+        'minute': selectedTimeMinutes,
+        'second': 0
+    });
+    console.log(currentTime.get());
 }
