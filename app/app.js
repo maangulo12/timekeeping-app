@@ -15,14 +15,18 @@ var alarmSound = document.querySelector('.alarm-sound');
 // Time Zone Main
 var timeZoneDropdown = document.querySelector('.timezone-dropdown');
 
+// getMoment
+var getMoment = moment.tz(getTimeZone());
+
 init();
 
 function init() {
     // Seconds mode init
     secondsMode.checked = true;
     // Alarm mode init
-    alarmMode.checked  = true;
-    alarmMsg.innerHTML = 'Alarm is set for';
+    alarmMode.checked   = true;
+    alarmMsg.innerHTML  = 'Alarm is set for';
+    alarmTime.innerHTML = getMoment.format('H:mm');
     // Bootstrap-Switch
     $('.hour-checkbox').bootstrapSwitch();
     $('.seconds-checkbox').bootstrapSwitch();
@@ -37,44 +41,30 @@ function updateTime() {
     var seconds = secondsMode.checked;
     var alarm   = alarmMode.checked;
 
-    var getMoment = moment.tz(getTimeZone());
-
     if (hour && seconds) {
         time.innerHTML = getMoment.format('H:mm:ss');
-
-        if (alarm) {
-            alarmTime.innerHTML = getMoment.format('H:mm');
-        }
     }
     else if (hour && !seconds) {
         time.innerHTML = getMoment.format('H:mm');
-
-        if (alarm) {
-            alarmTime.innerHTML = getMoment.format('H:mm');
-        }
     }
     else if (!hour && seconds) {
         time.innerHTML = getMoment.format('h:mm:ss A');
-
-        if (alarm) {
-            alarmTime.innerHTML = getMoment.format('h:mm A');
-        }
     }
     else {
         time.innerHTML = getMoment.format('h:mm A');
+    }
 
-        if (alarm) {
-            alarmTime.innerHTML = getMoment.format('h:mm A');
-        }
+    if (alarm) {
+        // alarmSound.play();
     }
 
     setTimeout(updateTime, 1000);
 }
 
+// toggleAlarm function
 function toggleAlarm() {
     if (alarmMode.checked) {
         alarmMsg.innerHTML = 'Alarm is set for';
-        alarmSound.play();
     }
     else {
         alarmMsg.innerHTML  = 'Alarm is off';
@@ -82,6 +72,7 @@ function toggleAlarm() {
     }
 }
 
+// getTimeZone function
 function getTimeZone() {
     switch (timeZoneDropdown.value) {
         case 'GMT':
