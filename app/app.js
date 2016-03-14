@@ -1,305 +1,187 @@
 'use strict';
 
-// Time Main
-var time         = document.querySelector('.time-display');
-var hourMode     = document.querySelector('.hour-checkbox');
-var secondsMode  = document.querySelector('.seconds-checkbox');
-var daylightMode = document.querySelector('.daylight-checkbox');
+var showTime = document.querySelector('.show-time');
+var hMode    = document.querySelector('.hour-checkbox');
+var sMode    = document.querySelector('.seconds-checkbox');
+var dMode    = document.querySelector('.daylight-checkbox');
+var aMode    = document.querySelector('.alarm-checkbox');
+var aMsg     = document.querySelector('.alarm-msg');
+var aTime    = document.querySelector('.alarm-time');
+var aSound   = document.querySelector('.alarm-sound');
+var timeZone = document.querySelector('.timezone-dropdown');
 
-// Alarm Main
-var alarmMsg   = document.querySelector('.alarm-msg');
-var alarmTime  = document.querySelector('.alarm-time');
-var alarmMode  = document.querySelector('.alarm-checkbox');
-var alarmSound = document.querySelector('.alarm-sound');
+var getMoment;
+var setMoment = moment.tz('Europe/London');
+var timeSet   = false;
 
-// Time Zone Main
-var timeZoneDropdown = document.querySelector('.timezone-dropdown');
+hMode.checked = false;
+sMode.checked = false;
+dMode.checked = false;
+aMode.checked = false;
 
-<<<<<<< HEAD
-// getMoment
-var getMoment = moment.tz(getTimeZone());
-=======
-var currentTime;
->>>>>>> origin/master
+$('.hour-checkbox').bootstrapSwitch();
+$('.seconds-checkbox').bootstrapSwitch();
+$('.daylight-checkbox').bootstrapSwitch();
+$('.alarm-checkbox').bootstrapSwitch();
 
-init();
+toggleAlarm();
+updateTime();
 
-function init() {
-    // Seconds mode init
-    secondsMode.checked = true;
-    // Alarm mode init
-    alarmMode.checked   = true;
-    alarmMsg.innerHTML  = 'Alarm is set for';
-    alarmTime.innerHTML = getMoment.format('H:mm');
-    // Bootstrap-Switch
-    $('.hour-checkbox').bootstrapSwitch();
-    $('.seconds-checkbox').bootstrapSwitch();
-    $('.daylight-checkbox').bootstrapSwitch();
-    $('.alarm-checkbox').bootstrapSwitch();
-    // Show Time
-    updateTime();
+function toggleAlarm() {
+    if (aMode.checked) {
+        aMsg.innerHTML = 'Alarm is set for';
+        aTime.innerHTML = 'TIME GOES HERE';
+    }
+    else {
+        aMsg.innerHTML  = 'Alarm is OFF';
+        aTime.innerHTML = '';
+    }
 }
 
 function updateTime() {
-    var hour    = hourMode.checked;
-    var seconds = secondsMode.checked;
-    var alarm   = alarmMode.checked;
+    getMoment = moment.tz('Europe/London');
 
-<<<<<<< HEAD
-    if (hour && seconds) {
-        time.innerHTML = getMoment.format('H:mm:ss');
-    }
-    else if (hour && !seconds) {
-        time.innerHTML = getMoment.format('H:mm');
-    }
-    else if (!hour && seconds) {
-        time.innerHTML = getMoment.format('h:mm:ss A');
-    }
-    else {
-        time.innerHTML = getMoment.format('h:mm A');
+    if (timeSet) {
+        getOffset();
+    } else {
+        getTimeZone();
     }
 
-    if (alarm) {
-        // alarmSound.play();
-=======
-    // Current Time
-    currentTime = moment.tz(getTimeZone());
-
-    if (hour && seconds) {
-        time.innerHTML = currentTime.format('H:mm:ss');
-
-        if (alarm) {
-            alarmTime.innerHTML = currentTime.format('H:mm');
-        }
+    if (dMode.checked) {
+        getMoment.add(1, 'hour');
     }
-    else if (hour && !seconds) {
-        time.innerHTML = currentTime.format('H:mm');
 
-        if (alarm) {
-            alarmTime.innerHTML = currentTime.format('H:mm');
-        }
+    if (hMode.checked && sMode.checked) {
+        showTime.innerHTML = getMoment.format('H:mm:ss');
     }
-    else if (!hour && seconds) {
-        time.innerHTML = currentTime.format('h:mm:ss A');
-
-        if (alarm) {
-            alarmTime.innerHTML = currentTime.format('h:mm A');
-        }
+    else if (hMode.checked && !sMode.checked) {
+        showTime.innerHTML = getMoment.format('H:mm');
+    }
+    else if (!hMode.checked && sMode.checked) {
+        showTime.innerHTML = getMoment.format('h:mm:ss A');
     }
     else {
-        time.innerHTML = currentTime.format('h:mm A');
+        showTime.innerHTML = getMoment.format('h:mm A');
+    }
 
-        if (alarm) {
-            alarmTime.innerHTML = currentTime.format('h:mm A');
-        }
->>>>>>> origin/master
+    if (aMode.checked) {
+        // aSound.play();
     }
 
     setTimeout(updateTime, 1000);
 }
 
-// toggleAlarm function
-function toggleAlarm() {
-    if (alarmMode.checked) {
-        alarmMsg.innerHTML = 'Alarm is set for';
-    }
-    else {
-        alarmMsg.innerHTML  = 'Alarm is off';
-        alarmTime.innerHTML = '';
-    }
+function reset() {
+    timeSet = false;
 }
 
-// getTimeZone function
 function getTimeZone() {
-    switch (timeZoneDropdown.value) {
+    switch (timeZone.value) {
         case 'GMT':
-            return 'Europe/London';
+            return;
         case 'UTC':
-            return 'Antarctica/Troll';
+            return;
         case 'ECT':
-            return 'Europe/Madrid';
+            getMoment.add(1, 'h');
+            return;
         case 'EET':
-            return 'Europe/Sofia';
+            getMoment.add(2, 'h');
+            return
         case 'ART':
-            return 'Africa/Cairo';
+            getMoment.add(2, 'h');
+            return;
         case 'EAT':
-            return 'Africa/Nairobi';
+            getMoment.add(3, 'h');
+            return;
         case 'MET':
-            return 'Asia/Tehran';
+            getMoment.add(3, 'h').add(30, 'm');
+            return;
         case 'NET':
-            return 'Asia/Dubai';
+            getMoment.add(4, 'h');
+            return;
         case 'PLT':
-            return 'Asia/Karachi';
+            getMoment.add(5, 'h');
+            return;
         case 'IST':
-            return 'Asia/Colombo';
+            getMoment.add(5, 'h').add(30, 'm');
+            return;
         case 'BST':
-            return 'Asia/Dhaka';
+            getMoment.add(6, 'h');
+            return;
         case 'VST':
-            return 'Asia/Bangkok';
+            getMoment.add(7, 'h');
+            return;
         case 'CTT':
-            return 'Asia/Shanghai';
+            getMoment.add(8, 'h');
+            return;
         case 'JST':
-            return 'Asia/Tokyo';
+            getMoment.add(9, 'h');
+            return;
         case 'ACT':
-            return 'Australia/Darwin';
+            getMoment.add(9, 'h').add(30, 'm');
+            return;
         case 'AET':
-            return 'Australia/Lindeman';
+            getMoment.add(10, 'h');
+            return;
         case 'SST':
-            return 'Australia/Melbourne';
+            getMoment.add(11, 'h');
+            return;
         case 'NST':
-            return 'Pacific/Tarawa';
+            getMoment.add(12, 'h');
+            return;
         case 'MIT':
-            return 'Pacific/Niue';
+            getMoment.subtract(11, 'h');
+            return;
         case 'HST':
-            return 'Pacific/Honolulu';
+            getMoment.subtract(10, 'h');
+            return;
         case 'AST':
-            return 'America/Sitka';
+            getMoment.subtract(9, 'h');
+            return;
         case 'PST':
-            return 'America/Los_Angeles';
+            getMoment.subtract(8, 'h');
+            return;
         case 'PNT':
-            return 'America/Phoenix';
+            getMoment.subtract(7, 'h');
+            return;
         case 'MST':
-            return 'America/Denver';
+            getMoment.subtract(7, 'h');
+            return;
         case 'CST':
-            return 'America/Monterrey';
+            getMoment.subtract(6, 'h');
+            return;
         case 'EST':
-            return 'America/New_York';
+            getMoment.subtract(5, 'h');
+            return;
         case 'IET':
-            return 'America/Indiana';
+            getMoment.subtract(5, 'h');
+            return;
         case 'PRT':
-            return 'America/Puerto_Rico';
+            getMoment.subtract(4, 'h');
+            return;
         case 'CNT':
-            return 'America/St_Johns';
+            getMoment.subtract(3, 'h').subtract(30, 'm');
+            return;
         case 'AGT':
-            return 'America/Argentina/Mendoza';
+            getMoment.subtract(3, 'h');
+            return;
         case 'BET':
-            return 'America/Bahia';
+            getMoment.subtract(3, 'h');
+            return;
         case 'GST':
-            return 'Atlantic/South_Georgia';
+            getMoment.subtract(2, 'h');
+            return;
         case 'CAT':
-            return 'Atlantic/Azores';
+            getMoment.subtract(1, 'h');
+            return;
         default:
-    }       return 'Europe/London';
-}
-
-//***********************************************************************
-//************************* SET ALARM MODAL *****************************
-//***********************************************************************
-var alarmHour     = document.querySelector('.set-alarm-hour');
-var alarmMinutes  = document.querySelector('.set-alarm-minutes');
-var alarmMisc     = document.querySelector('.set-alarm-misc');
-var alarmMiscSide = document.querySelector('.set-alarm-misc-side');
-
-var selectedAlarmTime;
-var selectedAlarmHour;
-var selectedAlarmMinutes;
-
-// Init
-function initAlarmModal() {
-    selectedAlarmHour    = 6;
-    selectedAlarmMinutes = 30;
-
-    alarmHour.innerHTML    = selectedAlarmHour;
-    alarmMinutes.innerHTML = selectedAlarmMinutes;
-
-    if (hourMode.checked) {
-        alarmMiscSide.style.display = 'none';
-    }
-    else {
-        alarmMiscSide.style.display = 'block';
-        alarmMisc.innerHTML         = 'AM';
+            return;
     }
 }
 
-// Increase Alarm Hour
-function increaseAlarmHour() {
-    if (hourMode.checked) {
-        if (selectedAlarmHour < 23) {
-            selectedAlarmHour++;
-        }
-        else {
-            selectedAlarmHour = 0;
-        }
-    }
-    else {
-        if (selectedAlarmHour < 12) {
-            selectedAlarmHour++;
-        }
-        else {
-            selectedAlarmHour = 1;
-        }
-    }
-    alarmHour.innerHTML = selectedAlarmHour;
-}
-
-// Decrease Alarm Hour
-function decreaseAlarmHour() {
-    if (hourMode.checked) {
-        if (selectedAlarmHour > 0) {
-            selectedAlarmHour--;
-        }
-        else {
-            selectedAlarmHour = 23;
-        }
-    }
-    else {
-        if (selectedAlarmHour > 1) {
-            selectedAlarmHour--;
-        }
-        else {
-            selectedAlarmHour = 12;
-        }
-    }
-    alarmHour.innerHTML = selectedAlarmHour;
-}
-
-// Increase Alarm Minutes
-function increaseAlarmMinutes() {
-    if (selectedAlarmMinutes < 59) {
-        selectedAlarmMinutes++;
-
-        if (selectedAlarmMinutes <= 9) {
-            alarmMinutes.innerHTML = '0' + selectedAlarmMinutes;
-        }
-        else {
-            alarmMinutes.innerHTML = selectedAlarmMinutes;
-        }
-    } else {
-        selectedAlarmMinutes = 0;
-        alarmMinutes.innerHTML = '0' + selectedAlarmMinutes;
-    }
-}
-
-// Decrease Alarm Minutes
-function decreaseAlarmMinutes() {
-    if (selectedAlarmMinutes > 0) {
-        selectedAlarmMinutes--;
-
-        if (selectedAlarmMinutes <= 9) {
-            alarmMinutes.innerHTML = '0' + selectedAlarmMinutes;
-        }
-        else {
-            alarmMinutes.innerHTML = selectedAlarmMinutes;
-        }
-    } else {
-        selectedAlarmMinutes = 59;
-        alarmMinutes.innerHTML = selectedAlarmMinutes;
-    }
-}
-
-// Toggle AM/PM
-function toggleAlarmMisc() {
-    if (alarmMisc.innerHTML == 'AM') {
-        alarmMisc.innerHTML = 'PM';
-    }
-    else {
-        alarmMisc.innerHTML = 'AM';
-    }
-}
-
-// Set Alarm
-function setAlarm() {
-    selectedAlarmTime = alarmHour.innerHTML + ':' + alarmMinutes.innerHTML;
+function getOffset() {
+    var minuteOffset = getMoment.diff(setMoment, 'm');
+    getMoment.subtract(minuteOffset, 'm').add(1, 'm');
 }
 
 //***********************************************************************
@@ -312,8 +194,8 @@ var timeMiscSide = document.querySelector('.set-time-misc-side');
 
 var selectedTimeHour;
 var selectedTimeMinutes;
+var selectedTimeMisc;
 
-// Init
 function initTimeModal() {
     selectedTimeHour    = 6;
     selectedTimeMinutes = 30;
@@ -321,18 +203,19 @@ function initTimeModal() {
     timeHour.innerHTML    = selectedTimeHour;
     timeMinutes.innerHTML = selectedTimeMinutes;
 
-    if (hourMode.checked) {
+    if (hMode.checked) {
+        selectedTimeMisc = null;
         timeMiscSide.style.display = 'none';
     }
     else {
+        selectedTimeMisc           = 'AM';
         timeMiscSide.style.display = 'block';
-        timeMisc.innerHTML         = 'AM';
+        timeMisc.innerHTML         = selectedTimeMisc;
     }
 }
 
-// Increase Time Hour
 function increaseTimeHour() {
-    if (hourMode.checked) {
+    if (hMode.checked) {
         if (selectedTimeHour < 23) {
             selectedTimeHour++;
         }
@@ -351,9 +234,8 @@ function increaseTimeHour() {
     timeHour.innerHTML = selectedTimeHour;
 }
 
-// Decrease Time Hour
 function decreaseTimeHour() {
-    if (hourMode.checked) {
+    if (hMode.checked) {
         if (selectedTimeHour > 0) {
             selectedTimeHour--;
         }
@@ -372,7 +254,6 @@ function decreaseTimeHour() {
     timeHour.innerHTML = selectedTimeHour;
 }
 
-// Increase Time Minutes
 function increaseTimeMinutes() {
     if (selectedTimeMinutes < 59) {
         selectedTimeMinutes++;
@@ -389,7 +270,6 @@ function increaseTimeMinutes() {
     }
 }
 
-// Decrease Time Minutes
 function decreaseTimeMinutes() {
     if (selectedTimeMinutes > 0) {
         selectedTimeMinutes--;
@@ -406,23 +286,161 @@ function decreaseTimeMinutes() {
     }
 }
 
-// Toggle AM/PM
 function toggleTimeMisc() {
     if (timeMisc.innerHTML == 'AM') {
-        timeMisc.innerHTML = 'PM';
+        selectedTimeMisc = 'PM';
+        timeMisc.innerHTML = selectedTimeMisc;
     }
     else {
-        timeMisc.innerHTML = 'AM';
+        selectedTimeMisc = 'AM';
+        timeMisc.innerHTML = selectedTimeMisc;
     }
 }
 
-// Set Time
 function setTime() {
     $('#set-time-modal').modal('hide');
-    currentTime.set({
-        'hour':   selectedTimeHour,
-        'minute': selectedTimeMinutes,
-        'second': 0
-    });
-    console.log(currentTime.get());
+    hourConverter();
+    setMoment.set({'hour': selectedTimeHour, 'minute': selectedTimeMinutes, 'seconds': 0});
+    timeSet = true;
+}
+
+function hourConverter() {
+    if (selectedTimeHour == 1 && selectedTimeMisc == 'PM') {
+        selectedTimeHour = 13;
+    } else if (selectedTimeHour == 2 && selectedTimeMisc == 'PM') {
+        selectedTimeHour = 14;
+    } else if (selectedTimeHour == 3 && selectedTimeMisc == 'PM') {
+        selectedTimeHour = 15;
+    } else if (selectedTimeHour == 4 && selectedTimeMisc == 'PM') {
+        selectedTimeHour = 16;
+    } else if (selectedTimeHour == 5 && selectedTimeMisc == 'PM') {
+        selectedTimeHour = 17;
+    } else if (selectedTimeHour == 6 && selectedTimeMisc == 'PM') {
+        selectedTimeHour = 18;
+    } else if (selectedTimeHour == 7 && selectedTimeMisc == 'PM') {
+        selectedTimeHour = 19;
+    } else if (selectedTimeHour == 8 && selectedTimeMisc == 'PM') {
+        selectedTimeHour = 20;
+    } else if (selectedTimeHour == 9 && selectedTimeMisc == 'PM') {
+        selectedTimeHour = 21;
+    } else if (selectedTimeHour == 10 && selectedTimeMisc == 'PM') {
+        selectedTimeHour = 22;
+    } else if (selectedTimeHour == 11 && selectedTimeMisc == 'PM') {
+        selectedTimeHour = 23;
+    } else if (selectedTimeHour == 12 && selectedTimeMisc == 'AM') {
+        selectedTimeHour = 0;
+    }
+}
+
+//***********************************************************************
+//************************* SET ALARM MODAL *****************************
+//***********************************************************************
+var alarmHour     = document.querySelector('.set-alarm-hour');
+var alarmMinutes  = document.querySelector('.set-alarm-minutes');
+var alarmMisc     = document.querySelector('.set-alarm-misc');
+var alarmMiscSide = document.querySelector('.set-alarm-misc-side');
+
+var selectedAlarmTime;
+var selectedAlarmHour;
+var selectedAlarmMinutes;
+
+function initAlarmModal() {
+    selectedAlarmHour    = 6;
+    selectedAlarmMinutes = 30;
+
+    alarmHour.innerHTML    = selectedAlarmHour;
+    alarmMinutes.innerHTML = selectedAlarmMinutes;
+
+    if (hMode.checked) {
+        alarmMiscSide.style.display = 'none';
+    }
+    else {
+        alarmMiscSide.style.display = 'block';
+        alarmMisc.innerHTML         = 'AM';
+    }
+}
+
+function increaseAlarmHour() {
+    if (hMode.checked) {
+        if (selectedAlarmHour < 23) {
+            selectedAlarmHour++;
+        }
+        else {
+            selectedAlarmHour = 0;
+        }
+    }
+    else {
+        if (selectedAlarmHour < 12) {
+            selectedAlarmHour++;
+        }
+        else {
+            selectedAlarmHour = 1;
+        }
+    }
+    alarmHour.innerHTML = selectedAlarmHour;
+}
+
+function decreaseAlarmHour() {
+    if (hMode.checked) {
+        if (selectedAlarmHour > 0) {
+            selectedAlarmHour--;
+        }
+        else {
+            selectedAlarmHour = 23;
+        }
+    }
+    else {
+        if (selectedAlarmHour > 1) {
+            selectedAlarmHour--;
+        }
+        else {
+            selectedAlarmHour = 12;
+        }
+    }
+    alarmHour.innerHTML = selectedAlarmHour;
+}
+
+function increaseAlarmMinutes() {
+    if (selectedAlarmMinutes < 59) {
+        selectedAlarmMinutes++;
+
+        if (selectedAlarmMinutes <= 9) {
+            alarmMinutes.innerHTML = '0' + selectedAlarmMinutes;
+        }
+        else {
+            alarmMinutes.innerHTML = selectedAlarmMinutes;
+        }
+    } else {
+        selectedAlarmMinutes = 0;
+        alarmMinutes.innerHTML = '0' + selectedAlarmMinutes;
+    }
+}
+
+function decreaseAlarmMinutes() {
+    if (selectedAlarmMinutes > 0) {
+        selectedAlarmMinutes--;
+
+        if (selectedAlarmMinutes <= 9) {
+            alarmMinutes.innerHTML = '0' + selectedAlarmMinutes;
+        }
+        else {
+            alarmMinutes.innerHTML = selectedAlarmMinutes;
+        }
+    } else {
+        selectedAlarmMinutes = 59;
+        alarmMinutes.innerHTML = selectedAlarmMinutes;
+    }
+}
+
+function toggleAlarmMisc() {
+    if (alarmMisc.innerHTML == 'AM') {
+        alarmMisc.innerHTML = 'PM';
+    }
+    else {
+        alarmMisc.innerHTML = 'AM';
+    }
+}
+
+function setAlarm() {
+    selectedAlarmTime = alarmHour.innerHTML + ':' + alarmMinutes.innerHTML;
 }
